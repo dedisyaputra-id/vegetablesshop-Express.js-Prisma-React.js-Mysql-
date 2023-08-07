@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  username String @db.VarChar(100) @unique
+  name String @db.VarChar(100)
+  gender Gender
+  role Role
+  password String @db.VarChar(100)
+  token String? @db.VarChar(100)
+
+  @@map("users")
+}
+
+enum Gender{
+  Male
+  Female
+}
+
+enum Role{
+  Admin
+  Customer
+}
+
+model Product{
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(100) 
+  stock Int 
+  price Int
+  category Category @relation(fields: [category_id], references: [id])
+  category_id Int 
+
+  @@map("products")
+}
+
+model Category{
+  id Int @id @default(autoincrement())
+  name Type
+  product Product[]
+
+  @@map("categories")
+}
+
+enum Type{
+  Fruit
+  vegetables
+}
+
