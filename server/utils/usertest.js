@@ -26,20 +26,3 @@ export const destroy = async () => {
 
   return result;
 };
-
-const token = uuid();
-export const login = async () => {
-  const result = await prisma.user.update({
-    where: {
-      username: "test",
-    },
-    data: {
-      token: token,
-    },
-    select: {
-      token: true,
-    },
-  });
-
-  return result;
-};

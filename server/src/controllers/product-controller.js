@@ -11,6 +11,18 @@ const get = async (req, res, next) => {
   }
 };
 
+const post = async (req, res, next) => {
+  try {
+    const result = await productService.post(req.body);
+    res.status(201).json({
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   get,
+  post,
 };
