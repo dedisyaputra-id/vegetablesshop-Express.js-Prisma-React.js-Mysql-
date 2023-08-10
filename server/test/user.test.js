@@ -60,7 +60,7 @@ describe("POST /api/users/login", () => {
   afterEach(async () => {
     await deleteUser();
   });
-  
+
   it("should can login user", async () => {
     const result = await supertest(web).post("/api/users/login").send({
       username: "test",
