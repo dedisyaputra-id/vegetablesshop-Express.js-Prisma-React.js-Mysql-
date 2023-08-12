@@ -1,6 +1,6 @@
 import prisma from "../app/database.js";
 
-const adminMiddleware = async (req, res, next) => {
+const customerMiddleware = async (req, res, next) => {
   const token = req.get("Authorization");
 
   if (!token) {
@@ -22,7 +22,7 @@ const adminMiddleware = async (req, res, next) => {
       res.status(401).json({
         errors: "Unauthorized",
       });
-    } else if (user.role === "Customer") {
+    } else if (user.role === "Admin") {
       res.status(400).json({
         errors: "you are not allowed to enter",
       });
@@ -33,4 +33,4 @@ const adminMiddleware = async (req, res, next) => {
   }
 };
 
-export default adminMiddleware;
+export default customerMiddleware;

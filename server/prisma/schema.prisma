@@ -15,7 +15,7 @@ model User {
   role Role
   password String @db.VarChar(100)
   token String? @db.VarChar(100)
-  transaction Transaction[]
+  transaction Cart[]
   @@map("users")
 }
 
@@ -36,7 +36,7 @@ model Product{
   price Int
   category Category @relation(fields: [category_id], references: [id])
   category_id Int 
-  transaction Transaction[]
+  transaction Cart[]
 
   @@map("products")
 }
@@ -49,14 +49,14 @@ model Category{
   @@map("categories")
 }
 
-model Transaction{
+model Cart{
   id Int @id @default(autoincrement())
   order_number Int @unique
   user User @relation(fields: [userid], references: [id])
   userid Int
   product Product @relation(fields: [productid], references: [id])
   productid Int
-  amount Int 
+  quantity Int 
 
-  @@map("transactions")
+  @@map("carts")
 }

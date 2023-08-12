@@ -1,37 +1,49 @@
 import validation from "../validation/validation.js";
 import trasactionValidation from "../validation/transaction-validation.js";
 import prisma from "../app/database.js";
-const post = async (request) => {
-  const validate = validation(trasactionValidation, request);
 
-  const isExistUser = await prisma.transaction.findFirst({
+const post = async (request, productid) => {
+  const validate = await validation(trasactionValidation, request);
+  const productId = Number(productid);
+  const isExistTransaction = await prisma.cart.findFirst({
     where: {
-      userid: validate.userid,
+      AND: [
+        {
+          userid: validate.userid,
+        },
+        {
+          productid: productId,
+        },
+      ],
     },
   });
-  const isExistProduct = await prisma.transaction.findFirst({
-    where: {
-      productid: validate.productid,
-    },
-  });
 
-  if (isExistUser && isExistProduct) {
-    const result = await prisma.transaction.update({
+  if (isExistTransaction) {
+    const result = await prisma.cart.updateMany({
       where: {
-        order_number: validate.order_number,
+        AND: [
+          { userid: isExistTransaction.userid },
+          { productid: isExistTransaction.productid },
+        ],
       },
       data: {
-        amount: isExistUserTransaction.amount + validate.amount,
+        quantity: isExistTransaction.quantity + validate.quantity,
       },
     });
+
     return result;
   }
 
-  const result = await prisma.transaction.create({
+  const result = await prisma.cart.create({
     data: {
       ...validate,
+      productid: productId,
     },
   });
 
   return result;
+};
+
+export default {
+  post,
 };
