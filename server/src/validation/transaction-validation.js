@@ -6,4 +6,8 @@ const validate = Joi.object({
   quantity: Joi.number().required(),
 });
 
-export default validate;
+const validationUpdate = Joi.object({
+  quantity: Joi.number().required(),
+});
+
+export { validate, validationUpdate };
