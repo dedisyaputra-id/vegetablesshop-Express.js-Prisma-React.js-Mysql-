@@ -57,6 +57,12 @@ model Cart{
   product Product @relation(fields: [productid], references: [id])
   productid Int
   quantity Int 
-
   @@map("carts")
 }
+
+// model Order{
+//   id Int @id @default(autoincrement())
+
+// }
+
+

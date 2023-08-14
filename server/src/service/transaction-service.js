@@ -121,9 +121,34 @@ const destroy = async (request) => {
   return result;
 };
 
+const checkout = async (request) => {
+  const orderNumber = Number(request);
+  const transaction = await prisma.cart.findUnique({
+    where: {
+      order_number: orderNumber,
+    },
+  });
+
+  if (!transaction) {
+    throw new responseError(404, "transaction not found");
+  }
+
+  const result = await prisma.cart.update({
+    where: {
+      order_number: transaction.order_number,
+    },
+    data: {
+      status: "checkout",
+    },
+  });
+
+  return result;
+};
+
 export default {
   post,
   get,
   update,
   destroy,
+  checkout,
 };

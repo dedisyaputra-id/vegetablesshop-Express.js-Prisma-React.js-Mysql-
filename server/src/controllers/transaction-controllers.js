@@ -46,9 +46,21 @@ const destroy = async (req, res, next) => {
   }
 };
 
+const checkout = async (req, res, next) => {
+  try {
+    const result = await transactionService.checkout(req.params.orderNumber);
+    res.status(204).json({
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   post,
   get,
   update,
   destroy,
+  checkout,
 };
