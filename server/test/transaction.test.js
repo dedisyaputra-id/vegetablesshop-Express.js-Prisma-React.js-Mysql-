@@ -65,13 +65,13 @@ describe("POST /api/cart", () => {
   it("should update quantity transaction", async () => {
     const result = await supertest(web)
       .post(`/api/cart/${1}`)
-      .set("Authorization", "1a044f89-8698-4a3f-9476-9e0d28d268b5")
+      .set("Authorization", "9586c9b6-aefd-4ca8-9b6d-4d6d114962d1")
       .send({
         order_number: 1,
         userid: 2,
         quantity: 1,
       });
-
+    console.log(result.body.errors);
     expect(result.status).toBe(201);
     expect(result.body.data.count).toBe(1);
   });
@@ -157,9 +157,9 @@ describe("CHECKOUT /api/cart/:orderNumber/checkout", () => {
   });
   it("should checkout cart data", async () => {
     const result = await supertest(web)
-      .put(`/api/cart/${3}/checkout`)
+      .patch(`/api/cart/${3}/checkout`)
       .set("Authorization", "9586c9b6-aefd-4ca8-9b6d-4d6d114962d1");
-    // console.log(result.body.errors);
+
     expect(result.status).toBe(204);
   });
 });

@@ -9,7 +9,7 @@ customerRouter.get("/api/cart/", transactionControllers.get);
 customerRouter.post("/api/cart/:productId", transactionControllers.post);
 customerRouter.put("/api/cart/:orderNumber", transactionControllers.update);
 customerRouter.delete("/api/cart/:orderNumber", transactionControllers.destroy);
-customerRouter.put(
+customerRouter.patch(
   "/api/cart/:orderNumber/checkout",
   transactionControllers.checkout
 );

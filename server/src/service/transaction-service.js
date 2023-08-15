@@ -6,7 +6,7 @@ import {
 import prisma from "../app/database.js";
 import responseError from "../error/error.js";
 
-const post = async (request, productid) => {
+export const post = async (request, productid) => {
   const validate = await validation(transactionValidation, request);
   const productId = Number(productid);
   const isExistTransaction = await prisma.cart.findFirst({
