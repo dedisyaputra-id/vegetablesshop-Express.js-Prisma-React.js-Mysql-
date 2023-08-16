@@ -15,7 +15,7 @@ describe("GET /api/products", () => {
   it("should get products data", async () => {
     const result = await supertest(web)
       .get("/api/products")
-      .set("Authorization", "66b901ac-4f29-4c7a-b1f5-38b4a9eac7cf");
+      .set("Authorization", "2f15569c-9dcc-4766-a65c-f3c517488a67");
 
     expect(result.status).toBe(200);
     expect(result.body.data).toBeDefined();
@@ -37,10 +37,10 @@ describe("GET /api/products", () => {
     expect(result.body.errors).toBeDefined();
   });
 
-  it("should cannot get products data because user is not admin ", async () => {
+  it("should cannot get products data because user is not admin", async () => {
     const result = await supertest(web)
       .get("/api/products")
-      .set("Authorization", "648360d7-aa85-4303-a8e2-7cf4b64f9e24");
+      .set("Authorization", "9586c9b6-aefd-4ca8-9b6d-4d6d114962d1");
 
     expect(result.status).toBe(400);
     expect(result.body.errors).toBeDefined();
@@ -54,30 +54,30 @@ describe("POST /api/products", () => {
   it("should create products data", async () => {
     const result = await supertest(web)
       .post("/api/products")
-      .set("Authorization", "66b901ac-4f29-4c7a-b1f5-38b4a9eac7cf")
+      .set("Authorization", "2f15569c-9dcc-4766-a65c-f3c517488a67")
       .send({
         name: "mangga",
         stock: 10,
         price: 10000,
-        category_id: 2,
+        category_id: 1,
       });
 
     expect(result.status).toBe(201);
     expect(result.body.data.name).toBe("mangga");
     expect(result.body.data.stock).toBe(10);
     expect(result.body.data.price).toBe(10000);
-    expect(result.body.data.category_id).toBe(2);
+    expect(result.body.data.category_id).toBe(1);
   });
 
   it("should not create products data because name empty", async () => {
     const result = await supertest(web)
       .post("/api/products")
-      .set("Authorization", "66b901ac-4f29-4c7a-b1f5-38b4a9eac7cf")
+      .set("Authorization", "2f15569c-9dcc-4766-a65c-f3c517488a67")
       .send({
         name: " ",
         stock: 10,
         price: 10000,
-        category_id: 2,
+        category_id: 1,
       });
 
     expect(result.status).toBe(400);
@@ -87,7 +87,7 @@ describe("POST /api/products", () => {
   it("should not create products data because users is not admin", async () => {
     const result = await supertest(web)
       .post("/api/products")
-      .set("Authorization", "648360d7-aa85-4303-a8e2-7cf4b64f9e24")
+      .set("Authorization", "9586c9b6-aefd-4ca8-9b6d-4d6d114962d1")
       .send({
         name: "sawi",
         stock: 10,

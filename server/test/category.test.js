@@ -9,7 +9,7 @@ describe("POST /api/categories", () => {
   it("should create data category", async () => {
     const result = await supertest(web)
       .post("/api/categories")
-      .set("Authorization", "66b901ac-4f29-4c7a-b1f5-38b4a9eac7cf")
+      .set("Authorization", "2f15569c-9dcc-4766-a65c-f3c517488a67")
       .send({
         name: "vegetables",
       });
@@ -21,7 +21,7 @@ describe("POST /api/categories", () => {
   it("should not create data category because category name already exist", async () => {
     const result = await supertest(web)
       .post("/api/categories")
-      .set("Authorization", "66b901ac-4f29-4c7a-b1f5-38b4a9eac7cf")
+      .set("Authorization", "2f15569c-9dcc-4766-a65c-f3c517488a67")
       .send({
         name: "Fruit",
       });
@@ -33,7 +33,7 @@ describe("POST /api/categories", () => {
   it("should can't create data category because user is not admin", async () => {
     const result = await supertest(web)
       .post("/api/categories")
-      .set("Authorization", "648360d7-aa85-4303-a8e2-7cf4b64f9e24")
+      .set("Authorization", "9586c9b6-aefd-4ca8-9b6d-4d6d114962d1")
       .send({
         name: "vegetables",
       });

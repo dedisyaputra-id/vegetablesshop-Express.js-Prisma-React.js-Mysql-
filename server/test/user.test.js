@@ -41,8 +41,8 @@ describe("POST /api/users", () => {
 
   it("should user already exist", async () => {
     const result = await supertest(web).post("/api/users").send({
-      username: "user",
-      name: "user",
+      username: "admin",
+      name: "admin",
       gender: "Male",
       role: "Admin",
       password: "password",
