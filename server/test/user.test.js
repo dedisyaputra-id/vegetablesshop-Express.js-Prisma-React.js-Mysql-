@@ -101,3 +101,18 @@ describe("POST /api/users/login", () => {
     expect(result.body.errors).toBeDefined();
   });
 });
+
+describe('LOGOUT "/api/:userId/logout"', () => {
+  it("should logout user ", async () => {
+    const result = await supertest(web).post(`/api/${1}/logout`);
+
+    expect(result.status).toBe(200);
+  });
+
+  it("should not logout user because user not found", async () => {
+    const result = await supertest(web).post(`/api/${5}/logout`);
+
+    expect(result.status).toBe(404);
+    expect(result.body.errors).toBeDefined();
+  });
+});

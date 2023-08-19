@@ -1,0 +1,8 @@
+.navbar {
+  background-color: #00a651;
+}
+
+.navbar .profil-image {
+  width: 3rem;
+  aspect-ratio: 1/1;
+}

@@ -1,6 +1,7 @@
 import express from "express";
 import transactionControllers from "../controllers/transaction-controllers.js";
 import customerMiddleware from "../middleware/customerMiddleware.js";
+import userController from "../controllers/user-controller.js";
 
 const customerRouter = express.Router();
 
@@ -27,6 +28,11 @@ customerRouter.delete(
 customerRouter.patch(
   "/api/cart/:orderNumber/checkout",
   transactionControllers.checkout,
+  customerMiddleware
+);
+customerRouter.post(
+  "/api/:userId/logout",
+  userController.logout,
   customerMiddleware
 );
 

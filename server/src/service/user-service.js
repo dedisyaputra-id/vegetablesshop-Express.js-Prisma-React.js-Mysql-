@@ -73,7 +73,35 @@ const login = async (request) => {
   return result;
 };
 
+const logout = async (request) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: request,
+    },
+    select: {
+      id: true,
+      token: true,
+    },
+  });
+
+  if (!user) {
+    throw new responseError(404, "user not found");
+  }
+
+  const result = await prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      token: null,
+    },
+  });
+
+  return result;
+};
+
 export default {
   register,
   login,
+  logout,
 };
