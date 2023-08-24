@@ -31,7 +31,8 @@ enum Role{
 
 model Product{
   id Int @id @default(autoincrement())
-  name String @db.VarChar(100) 
+  image String @db.VarChar(100)
+  name String @db.VarChar(100) @unique
   stock Int 
   price Int
   category Category @relation(fields: [category_id], references: [id])

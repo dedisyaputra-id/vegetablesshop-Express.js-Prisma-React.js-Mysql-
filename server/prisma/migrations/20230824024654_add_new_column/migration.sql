@@ -15,6 +15,7 @@ CREATE TABLE `users` (
 -- CreateTable
 CREATE TABLE `products` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `image` VARCHAR(100) NOT NULL,
     `name` VARCHAR(100) NOT NULL,
     `stock` INTEGER NOT NULL,
     `price` INTEGER NOT NULL,
@@ -39,7 +40,7 @@ CREATE TABLE `carts` (
     `userid` INTEGER NOT NULL,
     `productid` INTEGER NOT NULL,
     `quantity` INTEGER NOT NULL,
-    `status` ENUM('checkout', 'pending') NOT NULL DEFAULT 'pending',
+    `status` VARCHAR(20) NOT NULL DEFAULT 'pending',
 
     UNIQUE INDEX `carts_order_number_key`(`order_number`),
     PRIMARY KEY (`id`)

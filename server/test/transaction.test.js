@@ -71,7 +71,7 @@ describe("POST /api/cart", () => {
         userid: 2,
         quantity: 1,
       });
-    console.log(result.body.errors);
+
     expect(result.status).toBe(201);
     expect(result.body.data.count).toBe(1);
   });
