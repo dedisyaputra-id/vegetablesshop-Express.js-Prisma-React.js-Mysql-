@@ -1,5 +1,4 @@
 import productService from "../service/product-service.js";
-import responseError from "../error/error.js";
 
 const get = async (req, res, next) => {
   try {
@@ -23,7 +22,24 @@ const post = async (req, res, next) => {
   }
 };
 
+const update = async (req, res, next) => {
+  try {
+    const result = await productService.update(
+      req.body,
+      req.file,
+      req.params.name
+    );
+
+    res.status(201).json({
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   get,
   post,
+  update,
 };

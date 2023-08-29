@@ -2,7 +2,6 @@ import prisma from "../app/database.js";
 import validation from "../validation/validation.js";
 import producValidation from "../validation/product-validation.js";
 import responseError from "../error/error.js";
-import path from "path";
 
 const get = async () => {
   const result = await prisma.product.findMany({
@@ -60,21 +59,27 @@ const update = async (request, image, params) => {
   }
 
   if (!image) {
-    const result = await prisma.product.update({
-      data: {
-        ...validate,
+    const result = await prisma.product.updateMany({
+      where: {
+        name: product.name,
       },
-    });
-    return result;
-  } else {
-    const result = await prisma.product.update({
       data: {
-        image: image,
         ...validate,
       },
     });
     return result;
   }
+
+  const result = await prisma.product.update({
+    where: {
+      name: product.name,
+    },
+    data: {
+      image: image.filename,
+      ...validate,
+    },
+  });
+  return result;
 };
 
 export default {

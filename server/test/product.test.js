@@ -10,12 +10,12 @@ describe("GET /api/products", () => {
     await createProduct();
   });
   afterEach(async () => {
-    await deleteProduct();
+    await deleteProduct("mangga");
   });
   it("should get products data", async () => {
     const result = await supertest(web)
       .get("/api/products")
-      .set("Authorization", "8eed96d8-61b7-4ddb-9e00-357b6629b063");
+      .set("Authorization", "d87265cf-7e0b-48d9-aa75-9d09eaf7cf71");
 
     expect(result.status).toBe(200);
     expect(result.body.data).toBeDefined();
@@ -49,12 +49,13 @@ describe("GET /api/products", () => {
 
 describe("POST /api/products", () => {
   afterEach(async () => {
-    await deleteProduct();
+    await deleteProduct("mangga");
   });
+
   it("should create products data", async () => {
     const result = await supertest(web)
       .post("/api/products")
-      .set("Authorization", "8eed96d8-61b7-4ddb-9e00-357b6629b063")
+      .set("Authorization", "d87265cf-7e0b-48d9-aa75-9d09eaf7cf71")
       .send({
         name: "mangga",
         stock: 10,
@@ -72,7 +73,7 @@ describe("POST /api/products", () => {
   it("should not create products data because name empty", async () => {
     const result = await supertest(web)
       .post("/api/products")
-      .set("Authorization", "8eed96d8-61b7-4ddb-9e00-357b6629b063")
+      .set("Authorization", "d87265cf-7e0b-48d9-aa75-9d09eaf7cf71")
       .send({
         name: " ",
         stock: 10,
@@ -97,5 +98,27 @@ describe("POST /api/products", () => {
 
     expect(result.status).toBe(400);
     expect(result.body.errors).toBeDefined();
+  });
+});
+
+describe("PUT /api/products/:name", () => {
+  beforeEach(async () => {
+    await createProduct();
+  });
+  afterEach(async () => {
+    await deleteProduct("mangga muda");
+  });
+  it("should update products", async () => {
+    const result = await supertest(web)
+      .put("/api/products/mangga")
+      .set("Authorization", "d87265cf-7e0b-48d9-aa75-9d09eaf7cf71")
+      .send({
+        name: "mangga muda",
+        stock: 14,
+        price: 20000,
+        category_id: "1",
+      });
+    console.log(result.body.errors);
+    expect(result.status).toBe(201);
   });
 });
