@@ -7,9 +7,9 @@ const useFetch = (url, options) => {
   const [data, setData] = useState([]);
 
   const fetchApi = useCallback(async () => {
+    setIsLoading(true);
+    setError(false);
     try {
-      setIsLoading(true);
-      setError(false);
       const response = await axios(url, options);
       setData(response.data.data);
     } catch (error) {
@@ -19,7 +19,9 @@ const useFetch = (url, options) => {
   }, []);
 
   useEffect(() => {
-    fetchApi();
+    if (options.method === "get") {
+      fetchApi();
+    }
   }, [fetchApi]);
 
   return {
